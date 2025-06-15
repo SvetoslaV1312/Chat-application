@@ -1,0 +1,19 @@
+1
+4
+Admin
+bogi 1
+0
+
+0
+User
+admin adminpass
+1
+0
+User
+john 1234
+1
+0
+User
+alice pass1
+1
+0
