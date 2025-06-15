@@ -63,9 +63,6 @@
     <ClInclude Include="UsersRepo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VectorGeneric.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Container.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

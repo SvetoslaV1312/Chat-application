@@ -141,7 +141,6 @@
     <ClInclude Include="User.h" />
     <ClInclude Include="UsersRepo.h" />
     <ClInclude Include="Vector.hpp" />
-    <ClInclude Include="VectorGeneric.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
