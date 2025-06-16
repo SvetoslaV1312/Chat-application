@@ -137,7 +137,7 @@ void SystemManager::createChat()
 		
 }
 
-void SystemManager::instanceViewChat()
+void SystemManager::instanceViewChat() const
 {
 	size_t chatId;
 	std::cout << "Enter the chat id to view: ";
@@ -323,7 +323,7 @@ void SystemManager::setAdminCommand()
 	else std::cerr << "User is not Admin of the group.\n";
 }
 
-void SystemManager::displayGroupStats()
+void SystemManager::displayGroupStats() const
 {
 	size_t id;
 	std::cout << "Enter the id of the group you want to see stats.\n";
@@ -361,7 +361,7 @@ void SystemManager::deleteGroup(){
 
 }
 
-void SystemManager::viewAllChats()
+void SystemManager::viewAllChats() const
 {
 	Admin* a = dynamic_cast<Admin*>(system.getInstance());
 	if (a)

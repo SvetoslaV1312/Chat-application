@@ -11,17 +11,17 @@ public:
 	void registerUser();
 	void makeAdmin();
 	void createChat();
-	void instanceViewChat();
+	void instanceViewChat() const;
 	void selectChat();
 	void createGroup();
 	void addToGroup();
 	void leaveGroupUser();
 	void perfromKickFromGroup();
 	void setAdminCommand();
-	void displayGroupStats();
+	void displayGroupStats()const;
 	void deleteUser();
 	void deleteGroup();
-	void viewAllChats();
+	void viewAllChats()const;
 	void logoutSession();
 private:
 	System& system;
