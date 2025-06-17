@@ -305,6 +305,7 @@ Group::Group(std::ifstream& fs)
     }
     size_t adminCount = 0;
     fs >> adminCount;
+    fs.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     for (size_t i = 0; i < adminCount; i++)
     {
         String admin;
@@ -323,6 +324,7 @@ void Group::printTxt(std::ostream& os) const {
     for (size_t i = 0; i < users.getSize(); ++i) {
         os << users[i] << '\n';
     }
+    os << admins.getSize() << '\n';
     for (size_t i = 0; i < admins.getSize(); i++)
     {
         os << admins[i] << '\n';
