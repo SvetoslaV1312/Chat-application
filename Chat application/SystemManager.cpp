@@ -1,11 +1,16 @@
 #include "SystemManager.h"
-int choice=1;
+int choice=0;
 
 SystemManager::SystemManager(System& system)
 	:system(system)
 {
 	std::cout << "Press 1 for txt reading and writing or 2 for binary reading and writing.\n";
 	std::cin >> choice;
+	while (choice != 1 && choice != 2)
+	{
+		std::cerr << "Enter a valid answer.\n";
+		std::cin >> choice;
+	}
 	switch (choice)
 	{
 	case 1:
