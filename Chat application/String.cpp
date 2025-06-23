@@ -17,7 +17,7 @@ String::String(const char* string) {
     }
 
     size = strlen(string) + 1;
-    capacity = allocateCapacity(size);
+    capacity = calcualteCapacity(size);
     if (capacity == 0) capacity = 1;
     this->string = new char[capacity];
     strcpy(this->string, string);
@@ -35,7 +35,7 @@ String::String(char c) :
 String::String(size_t size) :
     size(size)
 {
-    capacity = allocateCapacity(size);
+    capacity = calcualteCapacity(size);
     this->string = new char[capacity];
 }
 
@@ -115,7 +115,7 @@ String& String::operator+=(const String& other) {
     if (!other.string || !string) return *this;
     size_t newSize = size + other.size;
     if (newSize + 1 > capacity) {
-        resize(allocateCapacity(newSize));
+        resize(calcualteCapacity(newSize));
     }
     strcpy(string + size, other.string);
     size = newSize;
@@ -219,7 +219,7 @@ void String::resize(size_t newCapacity) {
     capacity = newCapacity;
 }
 
-size_t String::allocateCapacity(size_t size) const
+size_t String::calcualteCapacity(size_t size) const
 {
     return size * 2;
 }
@@ -273,7 +273,7 @@ std::istream& operator>>(std::istream& is, String& other)
 
     if (buffLength >= other.getCapacity())
     {
-        other.resize(other.allocateCapacity(buffLength));
+        other.resize(other.calcualteCapacity(buffLength));
     }
     strcpy(other.string, buff);
 

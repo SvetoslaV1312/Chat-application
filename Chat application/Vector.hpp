@@ -15,18 +15,13 @@ public:
     {
         data = new T[capacity];
     }
-    explicit Vector(size_t newSize) : size(newSize), capacity(allocateCapacity(newSize)) {
+    explicit Vector(size_t newSize) : size(newSize), capacity(calcualteCapacity(newSize)) {
         data = new T[capacity]();
     }
     size_t getSize() const { return size; }
     size_t getCapacity() const { return capacity; }
     Vector<User*>& push_back(const User*& data) = delete;
     Vector& push_back(const T& data);
-    Vector<User*>& push_back_user(User* user);
-    void readBinaryUsers();
-    void writeBinaryUsers()const;
-    void readBinaryChats();
-    void writeBinaryChats()const;
     Vector& pop_back() {
         if (size == 0) return *this;
         size--;
@@ -35,7 +30,7 @@ public:
     }
     Vector& insert(const T& data, size_t position) {
         if (position > size) return *this;
-        if (size >= capacity) resize(allocateCapacity(size + 1));
+        if (size >= capacity) resize(calcualteCapacity(size + 1));
         for (size_t i = size; i > position; i--) this->data[i] = std::move(this->data[i - 1]);
         this->data[position] = data;
         size++;
@@ -58,7 +53,7 @@ public:
     }
     Vector& operator+=(const Vector& other) {
         size_t newSize = size + other.size;
-        if (newSize > capacity) resize(allocateCapacity(newSize));
+        if (newSize > capacity) resize(calcualteCapacity(newSize));
         for (size_t i = size, j = 0; i < newSize; i++, j++) data[i] = other.data[j];
         size = newSize;
         return *this;
@@ -130,7 +125,7 @@ public:
         size_t newSize = 0;
         fs.read((char*)(&newSize), sizeof(newSize));
         size = newSize;
-        capacity = allocateCapacity(newSize);
+        capacity = calcualteCapacity(newSize);
         data = new T[capacity];
         for (size_t i = 0; i < size; ++i) {
             fs.read((char*)(&data[i]), sizeof(data[i]));
@@ -152,15 +147,11 @@ private:
         capacity = newCapacity;
         size = copySize;
     }
-    size_t allocateCapacity(size_t n) const {
+    size_t calcualteCapacity(size_t n) const {
         return n == 0 ? 1 : n * 2;
     }
     void free() {
-        if constexpr (std::is_pointer_v<T>) {
-            for (size_t i = 0; i < size; ++i) {
-                delete data[i];
-            }
-        }
+
         delete[] data;
         data = nullptr;
         size = 0;
@@ -182,7 +173,7 @@ private:
 
 template <typename T>
 Vector<T>& Vector<T>::push_back(const T& data) {
-    if (size >= capacity) resize(allocateCapacity(size + 1));
+    if (size >= capacity) resize(calcualteCapacity(size + 1));
     this->data[size++] = data;
     return *this;
 }
@@ -199,7 +190,7 @@ std::istream& operator>>(std::istream& is, Vector<T>& vector) {
 
         vector.free();
         vector.size = newSize;
-        vector.capacity = vector.allocateCapacity(newSize);
+        vector.capacity = vector.calcualteCapacity(newSize);
         vector.data = new T[vector.capacity];
 
         for (size_t i = 0; i < vector.size; i++) {

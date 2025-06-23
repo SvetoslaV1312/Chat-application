@@ -42,7 +42,7 @@ private:
 	void copyFrom(const String& other);
 	void free();
 	void resize(size_t newCapacity);
-	size_t allocateCapacity(size_t size)const;
+	size_t calcualteCapacity(size_t size)const;
 	char* string = nullptr;
 	size_t capacity = 1;
 	size_t size = 0;
