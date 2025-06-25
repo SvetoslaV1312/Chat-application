@@ -1,5 +1,14 @@
 2
-1
+2
+Individual
+0
+john
+admin
+2
+john Hi admin, how are you?
+2025-06-25 19:55:43
+admin I'm doing well, thanks!
+2025-06-25 19:55:43
 Group
 1
 1
@@ -7,7 +16,10 @@ Group
 admin
 john
 alice
-1
+2
 admin
+alice
 DevTeam
-0
+1
+john I finished my part!
+2025-06-25 19:55:43

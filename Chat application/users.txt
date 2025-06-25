@@ -1,19 +1,13 @@
 1
-4
+2
 Admin
 admin adminpass
-1
+2
+0
 1
 0
 User
 john 1234
-1
-1
-User
-alice pass1
-1
-1
-User
-bogicha 1
+2
 0
-
+1

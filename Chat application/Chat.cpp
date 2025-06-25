@@ -72,10 +72,9 @@ void Individual::del(const String& user)
     {
         if (users[i] == user) users[i] = nullptr;
     }
-    size_t size = messages.getSize();
-    for (size_t i = 0; i < size; i++)
-    {
-        if (messages[i].getSender() == user) messages.remove(i);
+    for (int i = messages.getSize() - 1; i >= 0; i--) {
+        if (messages[i].getSender() == user)
+            messages.remove(i);
     }
 }
 
@@ -147,11 +146,11 @@ void Group::del(const String& user)
     {
         if (users[i] == user) users[i] = nullptr;
     }
-    size = messages.getSize();
-    for (size_t i = 0; i < size; i++)
-    {
-        if (messages[i].getSender() == user) messages.remove(i);
+    for (int i = messages.getSize()-1; i >= 0; i--) {
+        if (messages[i].getSender() == user)
+            messages.remove(i);
     }
+
 }
 
 bool Group::needApproval() const
@@ -162,6 +161,11 @@ bool Group::needApproval() const
 size_t Chat::getID() const
 {
     return this->id;
+}
+
+size_t Chat::messageCount() const
+{
+    return messages.getSize();
 }
 
 void Chat::printLastIdTxt(std::ostream& os)

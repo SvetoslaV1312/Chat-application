@@ -21,7 +21,7 @@ public:
 	virtual void displayStats()const =0;
 	virtual size_t getID()const;
 	virtual void readBin(std::istream& is)=0;
-
+	virtual size_t messageCount()const;
 	virtual void printTxt(std::ostream& os) const = 0;
 	virtual Chat* clone() const = 0;
 	static void printLastIdTxt(std::ostream&);

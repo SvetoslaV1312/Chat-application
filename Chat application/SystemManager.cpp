@@ -41,7 +41,7 @@ SystemManager::~SystemManager()
 
 void SystemManager::loginUser()
 {
-	if (system.getInstance())
+	if (system.getSystemUser())
 	{
 		std::cerr << "You are logged in already.\n";
 		return;
@@ -68,7 +68,7 @@ void SystemManager::loginUser()
 
 void SystemManager::registerUser()
 {
-	if (system.getInstance())
+	if (system.getSystemUser())
 	{
 		std::cerr << "You are logged in another account.\n";
 		return;
@@ -80,7 +80,7 @@ void SystemManager::registerUser()
 	if (numberUsers == 0)
 	{
 		system.setSession(new Admin(username, password));
-		system.addUser(system.getInstance());
+		system.addUser(system.getSystemUser());
 		std::cout << "You have been added as admin as you are the first user.\n";
 		return;
 	}
@@ -92,11 +92,11 @@ void SystemManager::registerUser()
 		}
 	}
 	system.setSession(new User(username, password));
-	system.addUser(system.getInstance());
+	system.addUser(system.getSystemUser());
 	std::cout << "You have been added.\n";
 }
 void SystemManager::makeAdmin() {
-	Admin* a = dynamic_cast<Admin*>(system.getInstance());
+	Admin* a = dynamic_cast<Admin*>(system.getSystemUser());
 	if (!a)
 	{
 		std::cerr << "only admin can perfrom this function.\n";
@@ -131,9 +131,9 @@ void SystemManager::createChat()
 	User* reciever= system.findUserByUsername(username);
 	if (reciever)
 	{
-		Individual i(system.getInstance()->getUsername(), reciever->getUsername());
+		Individual i(system.getSystemUser()->getUsername(), reciever->getUsername());
 		reciever->addChat(i.getID());
-		system.getInstance()->addChat(i.getID());
+		system.getSystemUser()->addChat(i.getID());
 		system.addChat(i.clone());
 		std::cout << "The chat has been created with id " << i.getID() <<std::endl;
 		return;
@@ -152,7 +152,7 @@ void SystemManager::instanceViewChat() const
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		return;
 	}	Chat* c=system.findChatById(chatId);
-	c->printMessages(system.getInstance()->getUsername());
+	c->printMessages(system.getSystemUser()->getUsername());
 }
 
 void SystemManager::selectChat()
@@ -165,14 +165,14 @@ void SystemManager::selectChat()
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		return;
 	}	Chat* c = system.findChatById(chatId);
-	c->sendMessage(system.getInstance()->getUsername());
+	c->sendMessage(system.getSystemUser()->getUsername());
 }
 
 void SystemManager::createGroup() {
 	String groupName;
 	Vector<String> usernames;
 	bool needsApproval;
-	String creator= system.getInstance()->getUsername();
+	String creator= system.getSystemUser()->getUsername();
 	usernames.push_back(creator);
 	std::cout << "Enter group name: ";	
 	readConsole(groupName);
@@ -230,18 +230,18 @@ void SystemManager::addToGroup()
 		std::cout << "Wrong username.\n";
 		return;
 	}
-	if ((g->needApproval() && g->userIsAdmin(system.getInstance()->getUsername())))
+	if ((g->needApproval() && g->userIsAdmin(system.getSystemUser()->getUsername())))
 	{
 		g->perfromAdd(username);
 	}
-	else if (!g->needApproval() && g->hasUser(system.getInstance()->getUsername()))
+	else if (!g->needApproval() && g->hasUser(system.getSystemUser()->getUsername()))
 	{
 		g->perfromAdd(username);
 	}
-	else if (g->hasUser(system.getInstance()->getUsername()))
+	else if (g->hasUser(system.getSystemUser()->getUsername()))
 	{
 		std::cout << "Notify the admins to add the person to the group.\n";
-		g->sendMessage(system.getInstance()->getUsername());
+		g->sendMessage(system.getSystemUser()->getUsername());
 	}
 	else std::cerr << "You are not allowed to add people to the group.\n";
 }
@@ -261,7 +261,7 @@ void SystemManager::leaveGroupUser()
 		std::cout << "Wrong id.\n";
 		return;
 	}
-	g->leaveGroup(system.getInstance()->getUsername());
+	g->leaveGroup(system.getSystemUser()->getUsername());
 
 }
 
@@ -289,7 +289,7 @@ void SystemManager::perfromKickFromGroup()
 		std::cout << "Wrong username.\n";
 		return;
 	}
-	if (g->userIsAdmin(system.getInstance()->getUsername()) && g->hasUser(system.getInstance()->getUsername()))
+	if (g->userIsAdmin(system.getSystemUser()->getUsername()) && g->hasUser(system.getSystemUser()->getUsername()))
 	{
 		g->removeUserFromGroup(username);
 	}
@@ -320,7 +320,7 @@ void SystemManager::setAdminCommand()
 		std::cout << "Wrong username.\n";
 		return;
 	}
-	if ( g->userIsAdmin(system.getInstance()->getUsername())&& g->hasUser(system.getInstance()->getUsername()))
+	if ( g->userIsAdmin(system.getSystemUser()->getUsername())&& g->hasUser(system.getSystemUser()->getUsername()))
 	{
 		g->makeAdmin(username);
 		std::cout << "Successfully made admin of group.\n";
@@ -348,7 +348,7 @@ void SystemManager::displayGroupStats() const
 
 void SystemManager::deleteGroup(){
 
-	Admin* a = dynamic_cast<Admin*>(system.getInstance());
+	Admin* a = dynamic_cast<Admin*>(system.getSystemUser());
 	if (a)
 	{
 		size_t id;
@@ -368,7 +368,7 @@ void SystemManager::deleteGroup(){
 
 void SystemManager::viewAllChats() const
 {
-	Admin* a = dynamic_cast<Admin*>(system.getInstance());
+	Admin* a = dynamic_cast<Admin*>(system.getSystemUser());
 	if (a)
 	{
 		system.printAllChats();
@@ -379,7 +379,7 @@ void SystemManager::viewAllChats() const
 
 void SystemManager::logoutSession()
 {
-	if (!system.getInstance())
+	if (!system.getSystemUser())
 	{
 		std::cerr << "You are not logged in can't perfrom.\n";
 		return;
@@ -390,7 +390,7 @@ void SystemManager::logoutSession()
 
 void SystemManager::deleteUser()
 {
-	Admin* a = dynamic_cast<Admin*>(system.getInstance());
+	Admin* a = dynamic_cast<Admin*>(system.getSystemUser());
 	if (a)
 	{
 		String username;

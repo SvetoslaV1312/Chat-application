@@ -110,8 +110,9 @@ void System::removeChatById(size_t id)
 }
 
 void System::removeMessagesFromUser(const String& username) {
-    for (size_t i = 0; i < chats.getSize(); ++i) {
-        if (chats[i]) {
+    size_t size = chats.getSize();
+    for (size_t i = 0; i < size; ++i) {
+        if (chats.getChats()[i]) {
             chats[i]->del(username); 
         }
     }
@@ -120,7 +121,7 @@ void System::removeMessagesFromUser(const String& username) {
 }
 
 
-User* System::getInstance()
+User* System::getSystemUser()
 {
     return session;
 }
@@ -151,6 +152,8 @@ void System::printAllChats() const
     for (size_t i = 0; i < chats.getSize(); i++)
     {
         std::cout << chats.getChats()[i]->getID() << " Id.\n";
+        std::cout << chats.getChats()[i]->messageCount() << " messages.\n";
+
         chats.getChats()[i]->printMessages(String());
         std::cout<<std::endl;
     }

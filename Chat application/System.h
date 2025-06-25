@@ -23,7 +23,7 @@ public:
 	void removeUserByUsername(const String& username);
 	void removeChatById(size_t id);
 	void removeMessagesFromUser(const String& username);
-	User* getInstance();
+	User* getSystemUser();
 	void setSession(User* other);
 	bool usernameExists(const String& other);
 	void removeChatFromUsers(size_t id);
